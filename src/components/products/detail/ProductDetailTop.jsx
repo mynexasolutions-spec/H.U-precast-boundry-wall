@@ -122,7 +122,7 @@ export default function ProductDetailTop({ product, details, category }) {
           </Reveal>
 
           <Reveal from="right">
-            <div className="rounded-3xl bg-white p-6 shadow-[0_24px_60px_-18px_rgba(17,24,39,0.35)] ring-1 ring-black/5 sm:p-8">
+            <div className="rounded-3xl bg-white p-5 shadow-[0_24px_60px_-18px_rgba(17,24,39,0.35)] ring-1 ring-black/5 sm:p-8">
               <p className="inline-flex items-center gap-2.5 text-sm font-bold text-brand">
                 <span aria-hidden className="h-0.5 w-6 bg-brand" /> Product Overview
               </p>
@@ -156,20 +156,20 @@ export default function ProductDetailTop({ product, details, category }) {
                 ))}
               </dl>
 
-              <div className="mt-7 flex flex-wrap gap-3 border-t border-neutral-100 pt-6">
+              <div className="mt-7 flex flex-col gap-3 border-t border-neutral-100 pt-6 sm:flex-row sm:flex-wrap">
                 <a
                   href={productQuoteLink(product.name)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-xl bg-[#25D366] px-6 py-3.5 text-base font-bold text-white shadow-[0_12px_28px_-10px_rgba(37,211,102,0.9)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1fb957] sm:flex-none"
+                  className="inline-flex w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-xl bg-[#25D366] px-5 py-3.5 text-base font-bold text-white shadow-[0_12px_28px_-10px_rgba(37,211,102,0.9)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#1fb957] sm:w-auto sm:flex-none sm:px-6"
                 >
-                  <WhatsAppIcon className="size-5" /> Get Quote on WhatsApp
+                  <WhatsAppIcon className="size-5 shrink-0" /> Get Quote on WhatsApp
                 </a>
                 <a
                   href={`tel:${siteConfig.phone}`}
-                  className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-xl bg-ink px-6 py-3.5 text-base font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink-soft sm:flex-none"
+                  className="inline-flex w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-xl bg-ink px-5 py-3.5 text-base font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink-soft sm:w-auto sm:flex-none sm:px-6"
                 >
-                  <Phone className="size-5" aria-hidden /> Call {siteConfig.phoneDisplay}
+                  <Phone className="size-5 shrink-0" aria-hidden /> Call {siteConfig.phoneDisplay}
                 </a>
               </div>
               <p className="mt-4 text-sm text-ink/60">
