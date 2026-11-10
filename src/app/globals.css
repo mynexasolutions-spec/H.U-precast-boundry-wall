@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand: #d9281f;
+  --color-brand-dark: #b81f18;
+  --color-ink: #1a1e27;
+  --color-ink-soft: #232833;
+  --color-surface: #f6f7f9;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), var(--font-inter), ui-sans-serif, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Never let an animated or decorative element widen the page sideways (clip, unlike hidden, keeps sticky working) */
+  overflow-x: clip;
+}
+
+/* Themed scrollbar */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #eef0f3;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-brand);
+    border-radius: 999px;
+    border: 3px solid #eef0f3;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-dark);
+  }
+}
+
+/* Firefox */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-brand) #eef0f3;
+  }
+}
+
+/* Content that slides in from the side (scroll reveals) must not count towards the page width on phones */
+main {
+  overflow-x: clip;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Entrance animations (hero) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(var(--r, 0deg));
+  }
+}
+
+.float {
+  transform: rotate(var(--r, 0deg));
+  animation: float 6s ease-in-out var(--d, 0s) infinite;
+}
+
+.hero-zoom {
+  animation: hero-zoom 2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Home hero slider: slides move in/out horizontally, forever */
+@keyframes hs-in-next {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes hs-out-next {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes hs-in-prev {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes hs-out-prev {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero-slide[data-role="off"] {
+  visibility: hidden;
+}
+.hero-slide[data-role="in-next"] {
+  animation: hs-in-next 0.9s cubic-bezier(0.65, 0, 0.2, 1) both;
+}
+.hero-slide[data-role="out-next"] {
+  animation: hs-out-next 0.9s cubic-bezier(0.65, 0, 0.2, 1) both;
+}
+.hero-slide[data-role="in-prev"] {
+  animation: hs-in-prev 0.9s cubic-bezier(0.65, 0, 0.2, 1) both;
+}
+.hero-slide[data-role="out-prev"] {
+  animation: hs-out-prev 0.9s cubic-bezier(0.65, 0, 0.2, 1) both;
+}
+.hero-progress {
+  animation-name: hero-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+/* Mobile sidebar */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  animation: slide-in-right 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease both;
+}
+
+/* Scroll reveal (see components/ui/Reveal.jsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms);
+}
+.reveal[data-from="left"] {
+  transform: translateX(-36px);
+}
+.reveal[data-from="right"] {
+  transform: translateX(36px);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (scripting: none) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-up,
+  .hero-zoom,
+  .float,
+  .slide-in-right,
+  .fade-in,
+  .hero-slide,
+  .hero-progress {
+    animation: none;
+  }
+}
